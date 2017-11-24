@@ -1,0 +1,75 @@
+{
+    "id": "com.tado",
+    "sdk": 2,
+    "name": {
+        "en": "tado°"
+    },
+    "description": {
+        "en": "Adds support for Tado"
+    },
+    "category": "climate",
+    "version": "1.0.0",
+    "compatibility": ">=1.5.0",
+    "author": {
+        "name": "Emile Nijssen",
+        "email": "emile@athom.nl"
+    },
+    "drivers": [
+	    {
+		    "id": "thermostat",
+		    "class": "thermostat",
+		    "capabilities": [ "measure_temperature", "measure_humidity", "target_temperature" ],
+		    "name": {
+			    "en": "Thermostat",
+			    "nl": "Thermostaat"
+		    },
+		    "pair": [
+			    {
+				    "id": "login"
+			    },
+			    {
+				    "id": "list_devices",
+				    "template": "list_devices",
+				    "navigation": {
+					    "next": "add_devices"
+				    }
+			    },
+			    {
+				    "id": "add_devices",
+				    "template": "add_devices"
+			    }
+		    ],
+		    "settings": [  
+                {
+                    "id": "username",
+                    "type": "text",
+                    "label": {
+                        "en": "Username",
+                        "nl": "Gebruikersnaam"
+                    },
+                    "value": ""
+                },
+                {
+                    "id": "password",
+                    "type": "password",
+                    "label": {
+                        "en": "Password",
+                        "nl": "Wachtwoord"
+                    },
+                    "value": ""
+                }
+		    ]
+	    }
+    ],
+    "capabilities": {
+	    "tado_manual": {
+		    "type": "boolean",
+		    "setable": true,
+		    "getable": true,
+		    "title": {
+			    "en": "Manual Control",
+			    "nl": "Handmatige bediening"
+		    }
+	    }
+    }
+}
