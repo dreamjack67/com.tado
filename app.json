@@ -8,7 +8,7 @@
         "en": "Adds support for Tado"
     },
     "category": "climate",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "compatibility": ">=1.5.0",
     "author": {
         "name": "Athom B.V."
