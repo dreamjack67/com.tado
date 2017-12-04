@@ -13,18 +13,15 @@
   "author": {
       "name": "Athom B.V."
   },
-	"contributors": {
-		"developers": [
-			{
-				"name": "Emile Nijssen"
-			},
-			{
-				"name": "Alex van den Berg",
-				"website": "https://github.com/OpenMindNL",
-				"email": "openmind_nl@hotmail.com"
-			}
-		]
-	},
+  "contributors": {
+    "developers": [
+      {
+        "name": "Alex van den Berg",
+        "website": "https://github.com/OpenMindNL",
+        "email": "openmind_nl@hotmail.com"
+      }
+    ]
+  },
   "images": {
     "large": "/assets/images/large.png",
     "small": "/assets/images/small.png"
