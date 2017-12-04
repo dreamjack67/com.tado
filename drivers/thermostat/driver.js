@@ -16,7 +16,6 @@ const capabilitiesMap = {
 		'solar_intensity',
 		'weather_state',
 		'presence_status',
-		'dummy_mobile'
 	],
 	'HOT_WATER': [
 		'tado_manual',
@@ -26,7 +25,6 @@ const capabilitiesMap = {
 		'solar_intensity',
 		'weather_state',
 		'presence_status',
-		'dummy_mobile'
 	],
 }
 const capabilitiesOptionsMap = {
@@ -68,56 +66,54 @@ const mobileComponentsMap = {
 	    {
 		    "id": "sensor",
 		    "capabilities": [
-					"measure_temperature",
-					"measure_humidity",
-					"heating_power",
-					"smart_heating",
-					"detect_open_window",
-					"presence_status",
-					"measure_temperature.outside",
-					"solar_intensity",
-					"weather_state",
-					"dummy_mobile"
-				],
-				"options": {
-					"showTitle": true,
-					"icons": {
-						"measure_temperature": "drivers/thermostat/assets/temp.svg",
-						"heating_power": "drivers/thermostat/assets/heating.svg",
-						"measure_humidity": "drivers/thermostat/assets/humidity.svg",
-						"detect_open_window": "drivers/thermostat/assets/open_window.svg",
-						"smart_heating": "drivers/thermostat/assets/smart_heating.svg",
-						"presence_status": "drivers/thermostat/assets/presence.svg",
-						"measure_temperature.outside": "drivers/thermostat/assets/temp_out.svg",
-						"solar_intensity": "drivers/thermostat/assets/sun.svg",
-						"weather_state": "drivers/thermostat/assets/weather.svg",
-						"dummy_mobile": "drivers/thermostat/assets/dummy.svg"
-					},
-					"detect_open_window": {
-						"noblink": false,
-						"invert": false,
-						"label": {
-								"true": { "en": "Heating paused", "nl": "Verwarming gepauzeerd" },
-								"false": { "en": "Not detected", "nl": "Niet gedetecteerd" }
-						}
-					},
-					"smart_heating": {
-						"noblink": false,
-						"invert": true,
-						"label": {
-								"true": { "en": "Active", "nl": "Actief" },
-								"false": { "en": "Not active", "nl": "Niet actief" }
-						}
-					},
-					"presence_status": {
-		        "noblink": false,
-		        "invert": true,
-						"label": {
-							"true": { "en": "Someone is at home", "nl": "Iemand is thuis" },
-							"false": { "en": "Everyone is out", "nl": "Iedereen is weg" }
-						}
+				"measure_temperature",
+				"measure_humidity",
+				"heating_power",
+				"smart_heating",
+				"detect_open_window",
+				"presence_status",
+				"measure_temperature.outside",
+				"solar_intensity",
+				"weather_state",
+			],
+			"options": {
+				"showTitle": true,
+				"icons": {
+					"measure_temperature": "drivers/thermostat/assets/temp.svg",
+					"heating_power": "drivers/thermostat/assets/heating.svg",
+					"measure_humidity": "drivers/thermostat/assets/humidity.svg",
+					"detect_open_window": "drivers/thermostat/assets/open_window.svg",
+					"smart_heating": "drivers/thermostat/assets/smart_heating.svg",
+					"presence_status": "drivers/thermostat/assets/presence.svg",
+					"measure_temperature.outside": "drivers/thermostat/assets/temp_out.svg",
+					"solar_intensity": "drivers/thermostat/assets/sun.svg",
+					"weather_state": "drivers/thermostat/assets/weather.svg",
+				},
+				"detect_open_window": {
+					"noblink": false,
+					"invert": false,
+					"label": {
+							"true": { "en": "Heating paused", "nl": "Verwarming gepauzeerd" },
+							"false": { "en": "Not detected", "nl": "Niet gedetecteerd" }
+					}
+				},
+				"smart_heating": {
+					"noblink": false,
+					"invert": true,
+					"label": {
+							"true": { "en": "Active", "nl": "Actief" },
+							"false": { "en": "Not active", "nl": "Niet actief" }
+					}
+				},
+				"presence_status": {
+			        "noblink": false,
+			        "invert": true,
+					"label": {
+						"true": { "en": "Someone is at home", "nl": "Iemand is thuis" },
+						"false": { "en": "Everyone is out", "nl": "Iedereen is weg" }
 					}
 				}
+			}
 	    },
 	    {
 		    "id": "thermostat",
@@ -136,40 +132,38 @@ const mobileComponentsMap = {
 	    {
 		    "id": "sensor",
 		    "capabilities": [
-					"smart_heating",
-					"presence_status",
-					"measure_temperature.outside",
-					"solar_intensity",
-					"weather_state",
-					"dummy_mobile"
-				],
-				"options": {
-					"showTitle": true,
-					"icons": {
-						"smart_heating": "drivers/thermostat/assets/smart_heating.svg",
-						"measure_temperature.outside": "drivers/thermostat/assets/temp_out.svg",
-						"solar_intensity": "drivers/thermostat/assets/sun.svg",
-						"weather_state": "drivers/thermostat/assets/weather.svg",
-						"presence_status": "drivers/thermostat/assets/presence.svg",
-						"dummy_mobile": "drivers/thermostat/assets/dummy.svg"
-					},
-					"smart_heating": {
-						"noblink": false,
-						"invert": true,
-						"label": {
-								"true": { "en": "Active", "nl": "Actief" },
-								"false": { "en": "Not active", "nl": "Niet actief" }
-						}
-					},
-					"presence_status": {
-		        "noblink": false,
-		        "invert": true,
-						"label": {
-							"true": { "en": "Someone is at home", "nl": "Iemand is thuis" },
-							"false": { "en": "Everyone is out", "nl": "Iedereen is weg" }
-						}
+				"smart_heating",
+				"presence_status",
+				"measure_temperature.outside",
+				"solar_intensity",
+				"weather_state",
+			],
+			"options": {
+				"showTitle": true,
+				"icons": {
+					"smart_heating": "drivers/thermostat/assets/smart_heating.svg",
+					"measure_temperature.outside": "drivers/thermostat/assets/temp_out.svg",
+					"solar_intensity": "drivers/thermostat/assets/sun.svg",
+					"weather_state": "drivers/thermostat/assets/weather.svg",
+					"presence_status": "drivers/thermostat/assets/presence.svg",
+				},
+				"smart_heating": {
+					"noblink": false,
+					"invert": true,
+					"label": {
+							"true": { "en": "Active", "nl": "Actief" },
+							"false": { "en": "Not active", "nl": "Niet actief" }
+					}
+				},
+				"presence_status": {
+			        "noblink": false,
+			        "invert": true,
+					"label": {
+						"true": { "en": "Someone is at home", "nl": "Iemand is thuis" },
+						"false": { "en": "Everyone is out", "nl": "Iedereen is weg" }
 					}
 				}
+			}
 	    },
 	    {
 		    "id": "thermostat",

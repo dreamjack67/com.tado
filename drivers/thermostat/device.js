@@ -6,67 +6,39 @@ const Homey = require('homey');
 class TadoDeviceThermostat extends TadoDevice {
 
 	triggerFlowHumidity( device, tokens ) {
-				this._flowTriggerHumidity
-						.trigger( device, tokens )
-								//.then( this.log )
-								.catch( this.error )
+		this._flowTriggerHumidity.trigger( device, tokens ).catch( this.error )
 	}
 
 	triggerFlowHeatingPower( device, tokens ) {
-				this._flowTriggerHeatingPower
-						.trigger( device, tokens )
-								//.then( this.log )
-								.catch( this.error )
+		this._flowTriggerHeatingPower.trigger( device, tokens ).catch( this.error )
 	}
 
 	triggerFlowOpenWindow( device, tokens ) {
-				this._flowTriggerOpenWindow
-						.trigger( device, tokens )
-								//.then( this.log )
-								.catch( this.error )
+		this._flowTriggerOpenWindow.trigger( device, tokens ).catch( this.error )
 	}
 
 	triggerFlowSmartHeating( device, tokens ) {
-				this._flowTriggerSmartHeating
-						.trigger( device, tokens )
-								//.then( this.log )
-								.catch( this.error )
+		this._flowTriggerSmartHeating.trigger( device, tokens ).catch( this.error )
 	}
 
-
 	triggerFlowOutsideTemperature( device, tokens ) {
-				this._flowTriggerOutsideTemperature
-						.trigger( device, tokens )
-								//.then( this.log )
-								.catch( this.error )
+		this._flowTriggerOutsideTemperature.trigger( device, tokens ).catch( this.error )
 	}
 
 	triggerFlowSolarIntensity( device, tokens ) {
-				this._flowTriggerOutsideTemperature
-						.trigger( device, tokens )
-								//.then( this.log )
-								.catch( this.error )
+		this._flowTriggerOutsideTemperature.trigger( device, tokens ).catch( this.error )
 	}
 
 	triggerFlowWeather( device, tokens ) {
-				this._flowTriggerWeather
-						.trigger( device, tokens )
-								//.then( this.log )
-								.catch( this.error )
+		this._flowTriggerWeather.trigger( device, tokens ).catch( this.error )
 	}
 
 	triggerFlowPresence( device, tokens ) {
-				this._flowTriggerPresence
-						.trigger( device, tokens )
-								//.then( this.log )
-								.catch( this.error )
+		this._flowTriggerPresence.trigger( device, tokens ).catch( this.error )
 	}
-
-
 
 	onInit() {
 		super.onInit();
-//console.log(this)
 
 		this.registerCapabilityListener('target_temperature', this._onCapabilityTargetTemperature.bind(this))
 		this.registerCapabilityListener('tado_manual', this._onCapabilityTadoManual.bind(this))
@@ -174,10 +146,12 @@ class TadoDeviceThermostat extends TadoDevice {
 
 		if( this.hasCapability('weather_state') && state.weatherState ){
 			var value = (state.weatherState.value).toLowerCase()
-			if(this.getCapabilityValue('weather_state') != value ){
-				//console.log('Flow trigger for ' + this.__name + ': weatherState changed to: ' + value + ' (' + Homey.__( value ) + ')' )
-				this.triggerFlowWeather( this, {'condition': Homey.__( value ), 'state': value } )
-				this.setCapabilityValue('weather_state', value ).catch( this.error );
+			var valueTranslated = Homey.__(value);
+			
+			if(this.getCapabilityValue('weather_state') != valueTranslated ){
+				//console.log('Flow trigger for ' + this.__name + ': weatherState changed to: ' + value + ' (' + valueTranslated + ')' )
+				this.triggerFlowWeather( this, {'condition': valueTranslated, 'state': value } )
+				this.setCapabilityValue('weather_state', valueTranslated ).catch( this.error );
 			}
 		}
 
@@ -234,15 +208,15 @@ class TadoDeviceThermostat extends TadoDevice {
 				"type": "MANUAL"
 			}
 		}).then(() => {
-			return Promise.resolve( this.getState() );
+			return this.getState();
 		})
 		return true;
 	}
 
 	async _onCapabilityTadoManual( value ) {
-			return this._api.unsetOverlay( this._homeId, this._zoneId ).then(() => {
-				return Promise.resolve( this.getState() );
-			});
+		return this._api.unsetOverlay( this._homeId, this._zoneId ).then(() => {
+			return this.getState();
+		});
 	}
 
 }

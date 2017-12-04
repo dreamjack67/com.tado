@@ -174,14 +174,6 @@
         },
         "getable": true,
         "setable": true
-    },
-    "dummy_mobile": {
-        "type": "string",
-        "title": {
-            "en": " "
-        },
-        "getable": true,
-        "setable": false
     }
   },
   "flow": {
