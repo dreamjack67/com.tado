@@ -178,19 +178,27 @@ class TadoDriverThermostat extends TadoDriver {
 
 		new Homey.FlowCardCondition('weather_state')
 			.register()
-			.registerRunListener( (args, state) => { return args.current_state == args.device.getCapabilityValue('weather_state'); });
+			.registerRunListener( (args, state) => {
+				return Homey.__(args.current_state) == args.device.getCapabilityValue('weather_state');
+			});
 
 		new Homey.FlowCardCondition('presence_status')
 			.register()
-			.registerRunListener( (args, state) => { return args.device.getCapabilityValue('presence_status'); });
+			.registerRunListener( (args, state) => {
+				return args.device.getCapabilityValue('presence_status');
+			});
 
 		new Homey.FlowCardCondition('smart_schedule')
 			.register()
-			.registerRunListener( (args, state) => { return args.device.getCapabilityValue('smart_heating'); });
+			.registerRunListener( (args, state) => {
+				return args.device.getCapabilityValue('smart_heating');
+			});
 
 		new Homey.FlowCardCondition('open_window')
 			.register()
-			.registerRunListener( (args, state) => { return args.device.getCapabilityValue('detect_open_window'); });
+			.registerRunListener( (args, state) => {
+				return args.device.getCapabilityValue('detect_open_window');
+			});
 
 
 		new Homey.FlowCardAction('set_off')

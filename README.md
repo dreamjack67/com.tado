@@ -1,7 +1,7 @@
 # tado°
 Adds support for tado° thermostats.
 
-## If you installed this app before v1.1.0 (that is: v1.0.0 or v1.0.1), then you need to remove the already added devices and add them again to enable the new functionality!
+> Note: If you installed this app before v1.1.0 (that is: v1.0.0 or v1.0.1), then you need to remove the already added devices and add them again to enable additional functionality.
 
 # Currently supported:
 * tado° Smart Thermostat (Heating & Hot water).
