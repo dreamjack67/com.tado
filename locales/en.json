@@ -1,4 +1,7 @@
 {
+  "tado_user": "User for my.tado.com",
+  "tado_password": "Password",
+  
   "night_clear": "Clear night",
   "night_cloudy": "Cloudy night",
   "cloudy": "Cloudy",
