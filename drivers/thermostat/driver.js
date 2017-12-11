@@ -5,7 +5,7 @@ const TadoDriver = require('../../lib/TadoDriver');
 
 const capabilitiesMap = {
 	'HEATING': [
-		'tado_manual',
+		'tado_smart',
 		'target_temperature',
 		'measure_temperature',
 		'measure_humidity',
@@ -18,7 +18,7 @@ const capabilitiesMap = {
 		'presence_status',
 	],
 	'HOT_WATER': [
-		'tado_manual',
+		'tado_smart',
 		'target_temperature',
 		'smart_heating',
 		'measure_temperature.outside',
@@ -29,6 +29,10 @@ const capabilitiesMap = {
 }
 const capabilitiesOptionsMap = {
 	'HEATING': {
+		"tado_smart": {
+    	"preventInsights": true,
+	    "preventTag": true
+		},
 		"target_temperature": {
 		    "min": 5,
 		    "max": 25
@@ -41,7 +45,11 @@ const capabilitiesOptionsMap = {
 		}
 	},
 	'HOT_WATER': {
-    "target_temperature": {
+		"tado_smart": {
+    	"preventInsights": true,
+	    "preventTag": true
+		},
+		"target_temperature": {
 	    "min": 30,
 	    "max": 65
     },
@@ -58,7 +66,7 @@ const mobileComponentsMap = {
 	'HEATING': [
 	    {
 		    "id": "icon",
-		    "capabilities": [ "tado_manual" ],
+		    "capabilities": [ "tado_smart" ],
 		    "options": {
 			    "showTitle": true
 		    }
@@ -124,7 +132,7 @@ const mobileComponentsMap = {
     'HOT_WATER': [
 	    {
 		    "id": "icon",
-		    "capabilities": [ "tado_manual" ],
+		    "capabilities": [ "tado_smart" ],
 		    "options": {
 			    "showTitle": true
 		    }
@@ -188,7 +196,7 @@ class TadoDriverThermostat extends TadoDriver {
 				return args.device.getCapabilityValue('presence_status');
 			});
 
-		new Homey.FlowCardCondition('smart_schedule')
+		new Homey.FlowCardCondition('smart_heating')
 			.register()
 			.registerRunListener( (args, state) => {
 				return args.device.getCapabilityValue('smart_heating');
@@ -217,6 +225,55 @@ class TadoDriverThermostat extends TadoDriver {
 		result.forEach( item => {
 			let home = item.home;
 			item.zones.forEach( zone => {
+
+				// Known tado device identifiers:
+				// GWxx = Gateway
+				// BUxx = Boiler Unit
+				// RUxx = Thermostat (Remote Unit)
+				// VAxx = Radiator Thermostat (Valve Addition ?)
+				// ACxx = Air Conditioning Control -> Expected id = AC. Should be checked and included as device.
+				//
+				// Available zone icons:
+				// tado_device_thermostat.svg
+				// tado_device_radiator.svg
+				// tado_device_combi.svg -> thermostat + valve(s)
+				// tado_device_water.svg
+				// tado_device_airco.svg
+				var xIcon = '';
+				switch(zone.type){
+					case 'HOT_WATER':
+						xIcon = 'tado_device_water.svg';
+						break;
+
+					case 'HEATING':
+						var xDeviceTypes = zone.deviceTypes;
+						if(xDeviceTypes.length){
+							var xDeviceString = '.';
+							xDeviceTypes.forEach(function(item, index){
+								xDeviceString += item;
+							});
+							var xRU = xDeviceString.indexOf('RU'),	// Thermostat available?
+									xVA = xDeviceString.indexOf('VA'),	//Radiator thermostat available?
+									xVA2 = xDeviceString.indexOf('VA', xVA + 1);	// more Radiator thermostats available?
+
+							if( xRU > 0 && xVA > 0 ){ // Combi of Thermostat(s) + Radiator Thermostat(s)
+								xIcon = 'tado_device_combi.svg'; break;
+							} else if( xVA > 0 ){
+								if( xVA2 > 0 ){ // Multiple Radiator Thermostat(s)
+									xIcon = 'tado_device_radiator_set.svg'; break;
+								} else { // Single Radiator Thermostat
+									xIcon = 'tado_device_radiator.svg'; break;
+								}
+							} else {
+								xIcon = 'tado_device_thermostat.svg'; break; // Thermostat(s)
+							}
+						}
+						break;
+
+					default:
+						xIcon = 'tado_device_thermostat.svg';
+				}
+
 				let device = {};
 					device.name = `${zone.name} (${home.name})`;
 					device.data = {
@@ -224,6 +281,8 @@ class TadoDriverThermostat extends TadoDriver {
 						zoneId: zone.id,
 						type: zone.type
 					}
+		      //device.icon = "drivers/thermostat/assets/" + xIcon + ".svg";
+		      device.icon = xIcon;
 					device.capabilities = capabilitiesMap[ zone.type ];
 					device.capabilitiesOptions = capabilitiesOptionsMap[ zone.type ];
 					device.mobile = { components: mobileComponentsMap[ zone.type ] };

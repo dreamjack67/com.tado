@@ -41,7 +41,7 @@ class TadoDeviceThermostat extends TadoDevice {
 		super.onInit();
 
 		this.registerCapabilityListener('target_temperature', this._onCapabilityTargetTemperature.bind(this))
-		this.registerCapabilityListener('tado_manual', this._onCapabilityTadoManual.bind(this))
+		this.registerCapabilityListener('tado_smart', this._onCapabilityTadoAuto.bind(this))
 
 		this._flowTriggerHumidity = new Homey.FlowCardTriggerDevice('humidity').register();
 		this._flowTriggerHeatingPower = new Homey.FlowCardTriggerDevice('heating_power').register();
@@ -94,7 +94,7 @@ class TadoDeviceThermostat extends TadoDevice {
 		if( this.hasCapability('smart_heating') ){
 			var value = (state.overlayType !== 'MANUAL')
 			if(this.getCapabilityValue('smart_heating') !== value && value != undefined ){
-				//console.log('Flow trigger for ' + this.__name + ': SmartHeating (overlayType) changed to: ' + value)
+				console.log('Flow trigger for ' + this.__name + ': SmartHeating (overlayType) changed to: ' + value)
 				this.triggerFlowSmartHeating( this, {'detection': value } )
 				this.setCapabilityValue('smart_heating', value ).catch( this.error );
 			}
@@ -114,14 +114,6 @@ class TadoDeviceThermostat extends TadoDevice {
 				this.setCapabilityValue('target_temperature', value ).catch( this.error );
 			}
 		}
-
-		if( this.hasCapability('tado_manual') ){
-			var value = (state.overlayType === 'MANUAL')
-			if(this.getCapabilityValue('tado_manual') !== value ){
-				this.setCapabilityValue('tado_manual', value ).catch( this.error );
-			}
-		}
-
 	}
 
 	_onWeather( state ) {
@@ -147,7 +139,7 @@ class TadoDeviceThermostat extends TadoDevice {
 		if( this.hasCapability('weather_state') && state.weatherState ){
 			var value = (state.weatherState.value).toLowerCase()
 			var valueTranslated = Homey.__(value);
-			
+
 			if(this.getCapabilityValue('weather_state') != valueTranslated ){
 				//console.log('Flow trigger for ' + this.__name + ': weatherState changed to: ' + value + ' (' + valueTranslated + ')' )
 				this.triggerFlowWeather( this, {'condition': valueTranslated, 'state': value } )
@@ -213,10 +205,14 @@ class TadoDeviceThermostat extends TadoDevice {
 		return true;
 	}
 
-	async _onCapabilityTadoManual( value ) {
-		return this._api.unsetOverlay( this._homeId, this._zoneId ).then(() => {
-			return this.getState();
-		});
+	async _onCapabilityTadoAuto( value ) {
+		if( !this.getCapabilityValue('smart_heating') ){ // smart_heating false -> true
+			return this._api.unsetOverlay( this._homeId, this._zoneId ).then(() => {
+				return this.getState();
+			});
+		} else { // smart_heating was true already
+				return this.getState();
+		}
 	}
 
 }
