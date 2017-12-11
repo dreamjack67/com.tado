@@ -8,7 +8,7 @@
       "en": "Adds support for tado°"
   },
   "category": "climate",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "compatibility": ">=1.5.0",
   "author": {
       "name": "Athom B.V."
@@ -82,14 +82,13 @@
     }
   ],
   "capabilities": {
-    "tado_manual": {
-      "type": "boolean",
-      "setable": true,
-      "getable": true,
-      "title": {
-        "en": "Smart schedule",
-        "nl": "Slimme schema"
-      }
+    "tado_smart": {
+        "type": "boolean",
+        "title": {
+            "en": ""
+        },
+        "getable": false,
+        "setable": true
     },
     "solar_intensity": {
         "type": "number",
@@ -508,7 +507,7 @@
         ]
       },
       {
-        "id": "smart_schedule",
+        "id": "smart_heating",
         "title": {
             "en": "Smart schedule !{{is active|is not active}}",
             "nl": "Slimme schema !{{is actief|is niet actief}}"
