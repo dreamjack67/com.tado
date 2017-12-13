@@ -1,12 +1,12 @@
 # tado°
 Adds support for tado° thermostats.
 
-> Note: If you installed this app before v1.1.0 (that is: v1.0.0 or v1.0.1), then you need to remove the already added devices and add them again to enable additional functionality.
+> Note: If you have a previous version for this app installed, then you need to remove the already added devices and add them again to enable additional functionality.
 
 # Currently supported:
 * tado° Smart Thermostat (Heating & Hot water).
 * tado° Smart Radiator Thermostat.
-* Combination of Smart Thermostat and Smart Radiator Thermostat.
+* Combination of Smart Thermostat and Smart Radiator Thermostat(s).
 
 
 # Configuration
@@ -19,8 +19,8 @@ Adds support for tado° thermostats.
 The app communicates with the online API at my.tado.com and does not directly contact your tado° devices. All data is sent over a secure https connection.
 
 Various capabilities are available:
-* Device icon: Tap to disable manual mode and set a zone to Smart schedule.
-* Thermostat dial. _Only 0.5 degree steps for now, but we're working on the 0.1 degree resolution that tado° offers for their Smart Thermostats_.
+* Device icon: Tap to disable manual mode and set the zone to Smart schedule.
+* Thermostat dial. _0.5 degree steps_.
 * Sensor display:
   * Temperature. _not for hot water_.
   * Humidity. _not for hot water_.
@@ -28,9 +28,9 @@ Various capabilities are available:
   * Open Window detection. _not for hot water_.
   * Smart schedule activity.
   * Someone at home?
-  * Temperature outside. _Offered by tado, from external provider_.
-  * Solar intensity. _Offered by tado, from external provider_.
-  * Weather conditions. _Offered by tado, from external provider_.
+  * Temperature outside. _Offered by tado°, from external provider_.
+  * Solar intensity. _Offered by tado°, from external provider_.
+  * Weather conditions. _Offered by tado°, from external provider_.
 
 
 ### Flow Triggers:
@@ -44,21 +44,30 @@ Various capabilities are available:
   * Solar intensity has changed (intensity (%) token)
   * The Weather changes (conditions token: [Sunny, Foggy, Thunderstorms etc.], id token: internally used id for comparisons etc.)
 
-
 ### Flow Conditions:
   * Smart schedule is/is not active.
   * Open window detection is/is not active.
   * Someone is at home / Everyone is out.
   * Weather condition is/is not... [Select from currently known possibilities]
 
-
 ### Flow Actions:
-  * Set the target temperature (Enables manual mode. 0.5 degree steps for now. We're working on a 0.1 degree resolution)
+  * Set the target temperature (Enables manual mode. 0.5 degree steps)
   * Activate Smart schedule
   * Turn heating off
 
 
 # History
+### 1.1.2
+  * Different device icons for:
+    - Smart Thermostat only
+    - One Smart Radiator Thermostat
+    - Multiple Smart Radiator Thermostats
+    - Thermostat + one or more Smart Radiator Thermostat(s)
+    - Hot water control
+  * Bug fix: For each device there were 2 tags & 2 insight logs called `Smart schedule` showing opposite values. Now there's one indicating the actual activity status for `Smart schedule`.
+
+### 1.1.1
+  * Bug fix for Weather condition flow card.
 
 ### 1.1.0
   * Upgrade bij Alex van den Berg (OpenMind_NL).

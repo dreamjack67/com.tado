@@ -1,4 +1,7 @@
 {
+  "tado_user": "Gebruiker voor my.tado.com",
+  "tado_password": "Wachtwoord",
+  
   "night_clear": "Heldere nacht",
   "night_cloudy": "Bewolkte nacht",
   "cloudy": "Bewolkt",
